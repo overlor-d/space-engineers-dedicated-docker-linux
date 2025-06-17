@@ -1,20 +1,14 @@
-FROM mmmaxwwwell/wine6:latest
+# Build stage
+FROM node:18-alpine AS build
+WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm ci
+COPY . .
+RUN npm run build
 
-COPY install-winetricks /scripts/
-RUN \
-  mkdir /wineprefix &&\
-  chown -R wine:wine /wineprefix &&\
-  chmod +x /scripts/install-winetricks
-WORKDIR /scripts
-RUN runuser wine bash -c ./install-winetricks
-RUN \
-  mkdir -p /appdata/space-engineers/bin &&\
-  mkdir -p /appdata/space-engineers/config
-COPY entrypoint.bash /entrypoint.bash
-COPY entrypoint-space_engineers.bash /entrypoint-space_engineers.bash
-RUN chmod +x /entrypoint.bash && chmod +x /entrypoint-space_engineers.bash
-
-CMD /entrypoint.bash
-
-  
-
+# Production stage
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
