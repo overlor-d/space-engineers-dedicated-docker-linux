@@ -86,10 +86,13 @@ appdata
 
 ```
 ## Web Interface
-A minimal web interface is provided in the `web` directory. Start it with:
+A small React based control panel lives in the `web` directory. Start it with:
 
 ```bash
-docker-compose up
+docker compose up web
 ```
 
-This will launch a small Nginx container serving a placeholder index page on port 80.
+This launches a Node container exposing the interface on port 80. The page
+shows whether the dedicated server container is running and provides **Start**
+and **Stop** buttons. Stopping the web container will also stop the server
+container automatically.

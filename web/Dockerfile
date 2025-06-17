@@ -1,5 +1,9 @@
-FROM nginx:alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY index.html /usr/share/nginx/html/index.html
+FROM node:18-alpine
+WORKDIR /app
+RUN apk add --no-cache docker-cli docker-compose
+COPY package.json ./
+RUN npm install
+COPY . .
+RUN chmod +x /app/entrypoint.sh
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/app/entrypoint.sh"]
