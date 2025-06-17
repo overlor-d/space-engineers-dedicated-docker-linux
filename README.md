@@ -85,3 +85,11 @@ appdata
             └── thumb.jpg
 
 ```
+## Web Interface
+A minimal web interface is provided in the `web` directory. Start it with:
+
+```bash
+docker-compose up
+```
+
+This will launch a small Nginx container serving a placeholder index page on port 80.

@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  web:
+    build: ./web
+    container_name: space-engineers-web
+    ports:
+      - "80:80"
