@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Space Engineers Web</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    const e = React.createElement;
+    function App() {
+      const [running, setRunning] = React.useState(false);
+      const fetchStatus = () => {
+        axios.get('/api/status').then(res => setRunning(res.data.running));
+      };
+      React.useEffect(() => {
+        fetchStatus();
+        const interval = setInterval(fetchStatus, 5000);
+        return () => clearInterval(interval);
+      }, []);
+      const start = () => axios.post('/api/start').then(fetchStatus);
+      const stop = () => axios.post('/api/stop').then(fetchStatus);
+      return e('div', null,
+        e('h1', null, 'Space Engineers Server'),
+        e('p', null, 'Status: ', running ? 'Running' : 'Stopped'),
+        e('button', {onClick: start, disabled: running}, 'Start'),
+        e('button', {onClick: stop, disabled: !running}, 'Stop')
+      );
+    }
+    ReactDOM.render(e(App), document.getElementById('root'));
+  </script>
+</body>
+</html>
