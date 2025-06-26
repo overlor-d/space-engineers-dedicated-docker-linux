@@ -1,1 +1,3 @@
-appdata/
+server/appdata
+server/world-zip
+server/star-system.zip

@@ -13,10 +13,10 @@ services:
     container_name: space-engineers-dedicated-docker-linux
     restart: unless-stopped
     volumes:
-      - ./appdata/space-engineers/config/World:/appdata/space-engineers/World
-      - ./appdata/space-engineers/config/Plugins:/appdata/space-engineers/Plugins
-      - ./appdata/space-engineers/config/SpaceEngineers-Dedicated.cfg:/appdata/space-engineers/SpaceEngineersDedicated/SpaceEngineers-Dedicated.cfg
-      - ./appdata/space-engineers/bins/SpaceEngineersDedicated:/appdata/space-engineers/SpaceEngineersDedicated
-      - ./appdata/space-engineers/bins/steamcmd:/home/wine/.steam
+      - ./server/appdata/space-engineers/config/World:/appdata/space-engineers/World
+      - ./server/appdata/space-engineers/config/Plugins:/appdata/space-engineers/Plugins
+      - ./server/appdata/space-engineers/config/SpaceEngineers-Dedicated.cfg:/appdata/space-engineers/SpaceEngineersDedicated/SpaceEngineers-Dedicated.cfg
+      - ./server/appdata/space-engineers/bins/SpaceEngineersDedicated:/appdata/space-engineers/SpaceEngineersDedicated
+      - ./server/appdata/space-engineers/bins/steamcmd:/home/wine/.steam
     ports:
       - "27016:27016/udp"
