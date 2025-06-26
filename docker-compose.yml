@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   web:
     build: ./web
@@ -8,6 +7,7 @@ services:
     volumes:
       - .:/workspace
       - /var/run/docker.sock:/var/run/docker.sock
+
   se-server:
     image: mmmaxwwwell/space-engineers-dedicated-docker-linux:latest
     container_name: space-engineers-dedicated-docker-linux
@@ -19,4 +19,4 @@ services:
       - ./server/appdata/space-engineers/bins/SpaceEngineersDedicated:/appdata/space-engineers/SpaceEngineersDedicated
       - ./server/appdata/space-engineers/bins/steamcmd:/home/wine/.steam
     ports:
-      - "27016:27016/udp"
+     - "27016:27016/udp"
